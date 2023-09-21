@@ -1,5 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
+import { useEffect } from "react"
+import Pusher from 'pusher-js';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
@@ -21,6 +23,22 @@ import {
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
+
+  useEffect(() => {
+
+    const pusher = new Pusher("7aa936485992bd3065c1", {
+      cluster: "mt1",
+    });
+
+    const channel = pusher.subscribe("tough-spoon-162");
+
+    channel.bind("my-event", (data) => {
+      console.log(data)
+      // Method to be dispatched on trigger.
+    });
+
+  }, []);
+
   const theme = useTheme();
 
   return (
@@ -31,7 +49,7 @@ export default function DashboardAppPage() {
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Hi, Welcome backs
         </Typography>
 
         <Grid container spacing={3}>

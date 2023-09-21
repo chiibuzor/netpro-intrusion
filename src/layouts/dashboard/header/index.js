@@ -58,6 +58,7 @@ export default function Header({ onOpenNav }) {
         </IconButton>
 
         <Searchbar />
+        <p style={{color: 'black', marginLeft: '19rem'}}>NetPro Intrusion Detection</p>
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack

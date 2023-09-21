@@ -1,35 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { faker } from '@faker-js/faker';
 // @mui
-import {
-  Card,
-  Table,
-  Stack,
-  Paper,
-  Avatar,
-  Button,
-  Popover,
-  Checkbox,
-  TableRow,
-  MenuItem,
-  TableBody,
-  TableCell,
-  Container,
-  Typography,
-  IconButton,
-  TableContainer,
-  TablePagination,
-} from '@mui/material';
+import { Card, Popover, Grid, MenuItem, Container } from '@mui/material';
 // components
-import Label from '../components/label';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // sections
-import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
 import USERLIST from '../_mock/user';
+
+import { AppOrderTimeline } from '../sections/@dashboard/app';
 
 // ----------------------------------------------------------------------
 
@@ -146,6 +128,34 @@ export default function UserPage() {
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
+  const [list, setList] = useState(
+    [...Array(4)].map((_, index) => ({
+      id: faker.datatype.uuid(),
+      title: 'Its Normal Traffic',
+      type: `order${index + 1}`,
+      time: faker.date.past(),
+    }))
+  );
+
+  useEffect(() => {
+    setTimeout(() => {
+      setList([
+        ...list,
+        {
+          id: faker.datatype.uuid(),
+          title: 'Its Normal Traffic',
+          type: `order2`,
+          time: faker.date.past(),
+        },
+      ]);
+
+    }, 10000);
+
+    const e = document.querySelectorAll('.simplebar-content-wrapper')[1]
+    e.scrollTop = e.scrollHeight
+
+  }, [list.length]);
+
   return (
     <>
       <Helmet>
@@ -153,20 +163,20 @@ export default function UserPage() {
       </Helmet>
 
       <Container>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+        {/* <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
             User
           </Typography>
           <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
             New User
           </Button>
-        </Stack>
+        </Stack> */}
 
-        <Card>
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+        <Card className='testCard'>
+          {/* <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} /> */}
 
-          <Scrollbar>
-            <TableContainer sx={{ minWidth: 800 }}>
+          <Scrollbar style={{ maxHeight: '500px' }}>
+            {/* <TableContainer sx={{ minWidth: 800 }}>
               <Table>
                 <UserListHead
                   order={order}
@@ -246,9 +256,12 @@ export default function UserPage() {
                   </TableBody>
                 )}
               </Table>
-            </TableContainer>
+            </TableContainer> */}
+            <Grid item xs={12} md={6} lg={4}>
+              <AppOrderTimeline title="Attack Summary" list={list} />
+            </Grid>
           </Scrollbar>
-
+          {/* 
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
@@ -257,7 +270,7 @@ export default function UserPage() {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          /> */}
         </Card>
       </Container>
 

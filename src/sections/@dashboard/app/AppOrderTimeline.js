@@ -25,11 +25,13 @@ export default function AppOrderTimeline({ title, subheader, list, ...other }) {
           },
         }}
       >
-        <Timeline>
-          {list.map((item, index) => (
-            <OrderItem key={item.id} item={item} isLast={index === list.length - 1} />
-          ))}
-        </Timeline>
+        {list && list.length ? (
+          <Timeline>
+            {list.map((item, index) => (
+              <OrderItem key={item.id} item={item} isLast={index === list.length - 1} />
+            ))}
+          </Timeline>
+        ) : null}
       </CardContent>
     </Card>
   );
@@ -57,7 +59,7 @@ function OrderItem({ item, isLast }) {
             (type === 'order2' && 'success') ||
             (type === 'order3' && 'info') ||
             (type === 'order4' && 'warning') ||
-            'error'
+            'success'
           }
         />
         {isLast ? null : <TimelineConnector />}
