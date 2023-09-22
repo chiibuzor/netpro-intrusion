@@ -21,7 +21,7 @@ RUN npm run build
 FROM nginx:1.21.3-alpine as production-stage
 
 # Copy build from build-stage to nginx
-COPY --from=build-stage /usr/src/app/dist /usr/share/nginx/html
+COPY --from=build-stage /usr/src/app/ /usr/share/nginx/html
 
 # Copy nginx config
 COPY nginx.conf /etc/nginx/nginx.conf
