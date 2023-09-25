@@ -10,6 +10,13 @@ import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 
+const ProtectedRoute = ({ children }) => {
+  if (!localStorage.getItem('user')) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -19,7 +26,7 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
-        { path: 'app', element: <DashboardAppPage /> },
+        { path: 'app', element:<ProtectedRoute> <DashboardAppPage /> </ProtectedRoute>},
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
