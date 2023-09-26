@@ -33,7 +33,7 @@ export default function LoginForm() {
 
     const data = { username: email, password };
 
-    fetch('http://3.92.88.52/login.php', {
+    fetch('http://3.215.66.231/login.php', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
