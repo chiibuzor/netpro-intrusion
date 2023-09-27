@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 import { useState, useEffect } from 'react';
 import { faker } from '@faker-js/faker';
+import Pusher from 'pusher-js';
 // @mui
 import { Card, Popover, Grid, MenuItem, Container } from '@mui/material';
 // components
@@ -70,6 +71,50 @@ export default function UserPage() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  useEffect(() => {
+    const pusher = new Pusher('7aa936485992bd3065c1', {
+      cluster: 'mt1',
+    });
+
+    const channel = pusher.subscribe('tough-spoon-162');
+
+    channel.bind('my-event', (data) => {
+      console.log(data);
+      // Method to be dispatched on trigger.
+
+      if(data.type && data.type === 'mitigate') {
+        setList((prevList) => {
+          return [
+            ...prevList,
+            {
+              id: faker.datatype.uuid(),
+              title: data.message,
+              type: `order2`,
+              time: faker.date.past(),
+            },
+          ];
+        });
+        
+        
+      } else {
+        setGenerateList((prevList) => {
+          return [
+            ...prevList,
+            {
+              id: faker.datatype.uuid(),
+              title: data.message,
+              type: `order2`,
+              time: faker.date.past(),
+            },
+          ];
+        });
+       
+      }
+
+      
+    });
+  }, []);
+
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
   };
@@ -128,38 +173,30 @@ export default function UserPage() {
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
-  const [list, setList] = useState(
-    [...Array(4)].map((_, index) => ({
-      id: faker.datatype.uuid(),
-      title: 'Its Normal Traffic',
-      type: `order${index + 1}`,
-      time: faker.date.past(),
-    }))
-  );
+  const [list, setList] = useState([]);
+  const [generateList, setGenerateList] = useState([]);
 
+  /*
   useEffect(() => {
-    setTimeout(() => {
-      setList([
-        ...list,
-        {
-          id: faker.datatype.uuid(),
-          title: 'Its Normal Traffic',
-          type: `order2`,
-          time: faker.date.past(),
-        },
-      ]);
+    setList([
+      ...list,
+      {
+        id: faker.datatype.uuid(),
+        title: 'Its Normal Traffic',
+        type: `order2`,
+        time: faker.date.past(),
+      },
+    ]);
 
-    }, 10000);
-
-    const e = document.querySelectorAll('.simplebar-content-wrapper')[1]
-    e.scrollTop = e.scrollHeight
-
+    const e = document.querySelectorAll('.simplebar-content-wrapper')[1];
+    e.scrollTop = e.scrollHeight;
   }, [list.length]);
+  */
 
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> User | NetPro IDS-IPS </title>
       </Helmet>
 
       <Container>
@@ -172,11 +209,10 @@ export default function UserPage() {
           </Button>
         </Stack> */}
 
-        <Card className='testCard'>
-          {/* <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} /> */}
+        {/* <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} /> */}
 
-          <Scrollbar style={{ maxHeight: '500px' }}>
-            {/* <TableContainer sx={{ minWidth: 800 }}>
+        <Scrollbar style={{ maxHeight: '500px', border: 'none' }}>
+          {/* <TableContainer sx={{ minWidth: 800 }}>
               <Table>
                 <UserListHead
                   order={order}
@@ -257,11 +293,20 @@ export default function UserPage() {
                 )}
               </Table>
             </TableContainer> */}
-            <Grid item xs={12} md={6} lg={4}>
-              <AppOrderTimeline title="Attack Summary" list={list} />
+           
+
+          <Grid container spacing={3}>
+            <Grid item xs={6}>
+              <AppOrderTimeline title="DDOS Traffic Generation" list={generateList} />
             </Grid>
-          </Scrollbar>
-          {/* 
+
+            <Grid item xs={6}>
+              <AppOrderTimeline title="Traffic Detection and Mitigation" list={list} />
+            </Grid>
+          </Grid>
+
+        </Scrollbar>
+        {/* 
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
@@ -271,7 +316,6 @@ export default function UserPage() {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           /> */}
-        </Card>
       </Container>
 
       <Popover

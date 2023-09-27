@@ -46,7 +46,7 @@ export default function LoginPage() {
   return (
     <>
       <Helmet>
-        <title> Login | Minimal UI </title>
+        <title> Login | NetPro IDS-IPS </title>
       </Helmet>
 
       <StyledRoot>
@@ -73,10 +73,10 @@ export default function LoginPage() {
               Sign in to NetPro
             </Typography>
 
-            <Typography variant="body2" sx={{ mb: 5 }}>
+            {/* <Typography variant="body2" sx={{ mb: 5 }}>
               Don’t have an account? {''}
               <Link variant="subtitle2">Get started</Link>
-            </Typography>
+            </Typography> */}
 
             {/* <Stack direction="row" spacing={2}>
               <Button fullWidth size="large" color="inherit" variant="outlined">

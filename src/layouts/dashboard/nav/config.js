@@ -12,12 +12,12 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
-    title: 'simulate attack',
+    title: 'simulate DDOS attack',
     path: '/dashboard/user',
     icon: icon('ic_user'),
   },
   {
-    title: 'attack results',
+    title: 'simulate normal traffic',
     path: '/dashboard/products',
     icon: icon('ic_cart'),
   },

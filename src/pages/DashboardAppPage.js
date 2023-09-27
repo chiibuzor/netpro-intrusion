@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
-import { useEffect } from "react"
-import Pusher from 'pusher-js';
+
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
@@ -23,37 +22,86 @@ import {
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
+  const userName = localStorage.user;
 
-  useEffect(() => {
+  const newsList = [
+    {
+      id: faker.datatype.uuid(),
+      title: 'DarkBeam Leaks Billions of Credentials via Unsecured Elasticsearch and Kibana Interface.',
+      description: "The leaked data, including email and password pairs, provides cybercriminals with almost limitless attack capabilities",
+      link: 'https://securityaffairs.com/151566/security/darkbeam-data-leak.html?&web_view=true',
+      image: `/assets/images/covers/cover_1.jpg`,
+      postedAt: faker.date.recent(),
+    },
+    {
+      id: faker.datatype.uuid(),
+      title: 'New AtlasCross Hackers Use American Red Cross as Phishing Lure',
+      description: faker.name.jobTitle(),
+      link: 'https://www.bleepingcomputer.com/news/security/new-atlascross-hackers-use-american-red-cross-as-phishing-lure/?&web_view=true',
+      image: `/assets/images/covers/cover_2.jpg`,
+      postedAt: faker.date.recent(),
+    },
+    {
+      id: faker.datatype.uuid(),
+      title: 'Github Repositories Bombarded by Info-Stealing Commits Masked as Dependabot',
+      description: "Github Repositories Bombarded by Info-Stealing Commits Masked as Dependabot",
+      link: 'https://www.bleepingcomputer.com/news/security/github-repos-bombarded-by-info-stealing-commits-masked-as-dependabot/?&web_view=true',
+      image: `/assets/images/covers/cover_3.jpg`,
+      postedAt: faker.date.recent(),
+    },
+    {
+      id: faker.datatype.uuid(),
+      title: 'Philippines State Health Organization Struggling to Recover From Ransomware Attack',
+      description: "The Philippine Health Insurance Corporation (PhilHealth), which manages the country's universal healthcare system, has been hit by a ransomware attack. ",
+      link: 'https://therecord.media/philippines-state-health-insurer-struggles-with-ransomware?&web_view=true',
+      image: `/assets/images/covers/cover_4.jpg`,
+      postedAt: faker.date.recent(),
+    },
+    {
+      id: faker.datatype.uuid(),
+      title: 'Pension Firms Report 4000% Surge in Breachesk',
+      description: "Pension providers reported a staggering quadruple-digit percentage increase in data breaches to the UK regulator last year, according to new data compiled by professional services firm RPC.",
+      link: 'https://www.infosecurity-magazine.com/news/pension-firms-report-4000-surge/?&web_view=true',
+      image: `/assets/images/covers/cover_4.jpg`,
+      postedAt: faker.date.recent(),
+    },
+  ];
 
-    const pusher = new Pusher("7aa936485992bd3065c1", {
-      cluster: "mt1",
-    });
+  const capitalizeFirstLetter = (str) => {
+    if (!str) {
+      return '';
+    }
+    let capitalized = '';
 
-    const channel = pusher.subscribe("tough-spoon-162");
+    try {
+      capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+    } catch (e) {
+      return '';
+    }
+    // converting first letter to uppercase
 
-    channel.bind("my-event", (data) => {
-      console.log(data)
-      // Method to be dispatched on trigger.
-    });
+    return capitalized || '';
+  };
 
-  }, []);
+
 
   const theme = useTheme();
 
   return (
     <>
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Dashboard | NetPro IDS-IPS </title>
       </Helmet>
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome backs
+          Hi, Welcome back {capitalizeFirstLetter(userName)}
         </Typography>
 
+        <iframe title="Threat map" src="https://threatmap.checkpoint.com/" style={{ width: '100%', height: '500px' }} />
+
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
+          {/* <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
           </Grid>
 
@@ -107,9 +155,9 @@ export default function DashboardAppPage() {
                 },
               ]}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppCurrentVisits
               title="Current Visits"
               chartData={[
@@ -125,8 +173,8 @@ export default function DashboardAppPage() {
                 theme.palette.error.main,
               ]}
             />
-          </Grid>
-
+          </Grid> */}
+          {/* 
           <Grid item xs={12} md={6} lg={8}>
             <AppConversionRates
               title="Conversion Rates"
@@ -144,9 +192,9 @@ export default function DashboardAppPage() {
                 { label: 'United Kingdom', value: 1380 },
               ]}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppCurrentSubject
               title="Current Subject"
               chartLabels={['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math']}
@@ -157,22 +205,13 @@ export default function DashboardAppPage() {
               ]}
               chartColors={[...Array(6)].map(() => theme.palette.text.secondary)}
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12} md={6} lg={8}>
-            <AppNewsUpdate
-              title="News Update"
-              list={[...Array(5)].map((_, index) => ({
-                id: faker.datatype.uuid(),
-                title: faker.name.jobTitle(),
-                description: faker.name.jobTitle(),
-                image: `/assets/images/covers/cover_${index + 1}.jpg`,
-                postedAt: faker.date.recent(),
-              }))}
-            />
+            <AppNewsUpdate title="Latest Cybersecurity News" list={newsList} />
           </Grid>
 
-          <Grid item xs={12} md={6} lg={4}>
+          {/* <Grid item xs={12} md={6} lg={4}>
             <AppOrderTimeline
               title="Order Timeline"
               list={[...Array(5)].map((_, index) => ({
@@ -188,8 +227,8 @@ export default function DashboardAppPage() {
                 time: faker.date.past(),
               }))}
             />
-          </Grid>
-
+          </Grid> */}
+          {/* 
           <Grid item xs={12} md={6} lg={4}>
             <AppTrafficBySite
               title="Traffic by Site"
@@ -216,9 +255,9 @@ export default function DashboardAppPage() {
                 },
               ]}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={6} lg={8}>
+          {/* <Grid item xs={12} md={6} lg={8}>
             <AppTasks
               title="Tasks"
               list={[
@@ -229,7 +268,7 @@ export default function DashboardAppPage() {
                 { id: '5', label: 'Sprint Showcase' },
               ]}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </>

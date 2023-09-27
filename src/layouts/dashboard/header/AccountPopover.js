@@ -27,6 +27,24 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
 
+  const userName = localStorage.user;
+
+  const capitalizeFirstLetter = (str) => {
+    if (!str) {
+      return "";
+    }
+    let capitalized = "";
+  
+    try {
+      capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+    } catch (e) {
+      return "";
+    }
+    // converting first letter to uppercase
+  
+    return capitalized || "";
+  };
+
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
@@ -84,7 +102,7 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {capitalizeFirstLetter(userName)}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {account.email}

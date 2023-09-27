@@ -46,7 +46,7 @@ export default function Header({ onOpenNav }) {
   return (
     <StyledRoot>
       <StyledToolbar>
-        <IconButton
+        {/* <IconButton
           onClick={onOpenNav}
           sx={{
             mr: 1,
@@ -57,15 +57,15 @@ export default function Header({ onOpenNav }) {
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
 
-        <Searchbar />
-        <p style={{color: 'black', marginLeft: '19rem'}}>NetPro Intrusion Detection</p>
+        <Searchbar /> */}
+        <p style={{color: 'black', marginLeft: '15rem'}}>NetPro Intrusion Prevention and Detection System</p>
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack
           direction="row"
           alignItems="center"
           spacing={{
-            xs: 0.5,
+            xs: 0.5, 
             sm: 1,
           }}
         >

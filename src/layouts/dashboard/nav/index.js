@@ -34,10 +34,28 @@ Nav.propTypes = {
   onCloseNav: PropTypes.func,
 };
 
+const capitalizeFirstLetter = (str) => {
+  if (!str) {
+    return "";
+  }
+  let capitalized = "";
+
+  try {
+    capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+  } catch (e) {
+    return "";
+  }
+  // converting first letter to uppercase
+
+  return capitalized || "";
+};
+
 export default function Nav({ openNav, onCloseNav }) {
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
+
+  const userName = localStorage.user;
 
   useEffect(() => {
     if (openNav) {
@@ -64,7 +82,7 @@ export default function Nav({ openNav, onCloseNav }) {
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {capitalizeFirstLetter(userName)}
               </Typography>
 
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -79,7 +97,7 @@ export default function Nav({ openNav, onCloseNav }) {
 
       <Box sx={{ flexGrow: 1 }} />
 
-      <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
+      {/* <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
         <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
           <Box
             component="img"
@@ -101,7 +119,7 @@ export default function Nav({ openNav, onCloseNav }) {
             Upgrade to Pro
           </Button>
         </Stack>
-      </Box>
+      </Box> */}
     </Scrollbar>
   );
 
