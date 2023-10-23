@@ -21,16 +21,16 @@ const navConfig = [
     path: '/dashboard/products',
     icon: icon('ic_cart'),
   },
-  {
-    title: 'intelligence',
-    path: '/dashboard/blog',
-    icon: icon('ic_blog'),
-  },
-  {
-    title: 'alerts',
-    path: '/login',
-    icon: icon('ic_lock'),
-  },
+  // {
+  //   title: 'intelligence',
+  //   path: '/dashboard/blog',
+  //   icon: icon('ic_blog'),
+  // },
+  // {
+  //   title: 'alerts',
+  //   path: '/login',
+  //   icon: icon('ic_lock'),
+  // },
 ];
 
 export default navConfig;
