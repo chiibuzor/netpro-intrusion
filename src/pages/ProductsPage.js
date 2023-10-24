@@ -78,7 +78,7 @@ export default function ProductsPage() {
 
     const channel = pusher.subscribe('tough-spoon-162');
 
-    channel.bind('my-event', (data) => {
+    channel.bind('normal-event', (data) => {
       console.log(data);
       // Method to be dispatched on trigger.
 
@@ -297,7 +297,7 @@ export default function ProductsPage() {
 
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              <AppOrderTimeline title="DDOS Traffic Generation" list={generateList} />
+              <AppOrderTimeline title="Normal Traffic Generation" list={generateList} />
             </Grid>
 
             <Grid item xs={6}>
