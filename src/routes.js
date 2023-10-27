@@ -27,9 +27,9 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element:<ProtectedRoute> <DashboardAppPage /> </ProtectedRoute>},
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
+        { path: 'user', element: <ProtectedRoute> <UserPage /></ProtectedRoute> },
+        { path: 'products', element:<ProtectedRoute> <ProductsPage /></ProtectedRoute> },
+        { path: 'blog', element: <ProtectedRoute> <BlogPage /> </ProtectedRoute>},
       ],
     },
     {
